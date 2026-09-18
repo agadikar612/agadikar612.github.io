@@ -3,110 +3,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>University Application Response</title>
-  <!-- Criterion 3: CSS Linking -->
-  <link rel="stylesheet" href="tutorial_1_letter_styles.css">
+  <title>Responsive Component Layout</title>
+  <!-- External Font Awesome Resource -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* CSS RESET & BOX MODEL SETUP */
+    *, *::before, *::after {
+      box-sizing: border-box; /* Demonstrates Box Model understanding */
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* CSS GRID FOR PAGE REGIONS (Header, Main Content, Footer) */
+    .page-container {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #1e293b;
+      color: #ffffff;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #1e293b;
+      color: #94a3b8;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* FLEXBOX CONTAINER FOR REPEATING COMPONENTS */
+    .card-grid {
+      display: flex;
+      flex-direction: column; /* Mobile first: Column layout */
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    /* COMPONENT BOX MODEL & FLEXBOX INTERNAL STYLING */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0; /* Border */
+      border-radius: 8px;
+      padding: 1.5rem; /* Padding */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem; /* Margin */
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 0.75rem;
+      border-radius: 50%;
+    }
+
+    .card-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #16a34a;
+      background: #f0fdf4;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #bbf7d0;
+    }
+
+    .card-body h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .card-body p {
+      color: #64748b;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 1rem;
+    }
+
+    .card-action {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE BREAKPOINT (Medium/Large Screens) */
+    @media (min-width: 768px) {
+      .card-grid {
+        flex-direction: row; /* Switch to Row on large screens */
+        flex-wrap: wrap;
+      }
+
+      .card {
+        flex: 1; /* Equal width distribution */
+        min-width: 280px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <main class="letter-document">
-
-    <!-- Criterion 2: Image Inclusion -->
-    <img src="image.jpg" alt="University Logo" style="max-width: 150px; display: block; margin-bottom: 1rem;">
-
-    <header class="letter-header">
-      <address class="sender-info">
-        <strong>Dr. Eleanor Gaye</strong><br>
-        Awesome Science faculty<br>
-        University of Awesome<br>
-        Bobtown, CA 99999, USA<br>
-        <strong>Tel:</strong> 123-456-7890<br>
-        <strong>Email:</strong> <a href="mailto:no_reply@example.com" class="letter-link">no_reply@example.com</a>
-      </address>
-
-      <div class="letter-date">
-        <time datetime="2016-01-20">20 January 2016</time>
-      </div>
-
-      <address class="recipient-info">
-        <strong>Miss Eileen Dover</strong><br>
-        4321 Cliff Top Edge<br>
-        Dover, CT9 XXX<br>
-        UK
-      </address>
+  <!-- PAGE REGION: CSS GRID LAYOUT -->
+  <div class="page-container">
+    
+    <header>
+      <h1>Enterprise Product Features</h1>
     </header>
 
-    <h1 class="letter-subject">Re: Eileen Dover university application</h1>
+    <main>
+      <!-- REPEATING FLEXBOX COMPONENT CONTAINER -->
+      <section class="card-grid">
 
-    <p class="letter-paragraph letter-greeting">Dear Eileen,</p>
+        <!-- COMPONENT 1 -->
+        <article class="card">
+          <div class="card-header">
+            <i class="fa-solid fa-brain card-icon"></i>
+            <span class="card-badge">Active</span>
+          </div>
+          <div class="card-body">
+            <h3>Agentic AI Workflows</h3>
+            <p>Automate multi-step decision processes and eliminate complex manual exception handling seamlessly.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-action">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
 
-    <p class="letter-paragraph">
-      Thank you for your recent application to join us at the University of Awesome's science faculty to study as part of your <abbr title="Doctor of Philosophy" class="abbreviation">PhD</abbr> next year. I will answer your questions one by one, in the following sections.
-    </p>
+        <!-- COMPONENT 2 -->
+        <article class="card">
+          <div class="card-header">
+            <i class="fa-solid fa-chart-line card-icon"></i>
+            <span class="card-badge">Updated</span>
+          </div>
+          <div class="card-body">
+            <h3>Revenue Analytics</h3>
+            <p>Surface hidden leakage points and optimize margins using high-density financial dashboards.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-action">View Metrics <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
 
-    <section class="content-section">
-      <h2 class="section-heading">Starting dates</h2>
-      <p class="letter-paragraph">
-        We are happy to accommodate you starting your study with us at any time, however it would suit us better if you could start at the beginning of a semester; the start dates for each one are as follows:
-      </p>
-      <ul class="semester-dates">
-        <li>First semester: <time datetime="2016-09-09">9 September 2016</time></li>
-        <li>Second semester: <time datetime="2017-01-15">15 January 2017</time></li>
-        <li>Third semester: <time datetime="2017-05-02">2 May 2017</time></li>
-      </ul>
-      <p class="letter-paragraph">
-        Please let me know if this is ok, and if so which start date you would prefer.
-      </p>
-    </section>
+        <!-- COMPONENT 3 -->
+        <article class="card">
+          <div class="card-header">
+            <i class="fa-solid fa-cubes card-icon"></i>
+            <span class="card-badge">Scalable</span>
+          </div>
+          <div class="card-body">
+            <h3>Design Systems</h3>
+            <p>Component-based UI architecture with tokens built to WCAG 2.2 accessibility standards.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-action">Explore System <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
 
-    <section class="content-section">
-      <h2 class="section-heading">Subjects of study</h2>
-      <p class="letter-paragraph">
-        At the Awesome Science Faculty, we have a pretty open-minded research facility — as long as the subjects fall somewhere in the realm of science and technology. You seem like an intelligent, dedicated researcher, and just the kind of person we'd like to have on our team. Saying that, of the ideas you submitted we were most intrigued by are as follows, in order of priority:
-      </p>
-      <ol class="priority-list">
-        <li>Turning H<span class="subscript">2</span>O into wine, and the health benefits of Resveratrol (C<span class="subscript">14</span>H<span class="subscript">12</span>O<span class="subscript">3</span>).</li>
-        <li>Measuring the effect on performance of funk bass players at temperatures exceeding 30°C (86°F), when the audience size exponentially increases (effect of 3 × 10<span class="superscript">3</span> increasing to 3 × 10<span class="superscript">4</span>).</li>
-        <li><abbr title="Hypertext Markup Language" class="abbreviation">HTML</abbr> and <abbr title="Cascading Style Sheets" class="abbreviation">CSS</abbr> constructs for representing musical scores.</li>
-      </ol>
-      <p class="letter-paragraph">
-        So please can you provide more information on each of these subjects, including how long you'd expect the research to take, required staff and other resources, and anything else you think we'd need to know? Thanks.
-      </p>
-    </section>
+      </section>
+    </main>
 
-    <section class="content-section">
-      <h2 class="section-heading">Exotic dance moves</h2>
-      <p class="letter-paragraph">
-        Yes, you are right! As part of my post-doctorate work, I did study exotic tribal dances. To answer your question, my favorite dances are as follows, with definitions:
-      </p>
-      <dl class="dance-definitions">
-        <dt class="dance-term">Polynesian chicken dance</dt>
-        <dd class="dance-definition">
-          A little known but very influential dance dating back as far as 300 <abbr title="Before Common Era" class="abbreviation">BCE</abbr>, a whole village would dance around in a circle like chickens, to encourage their livestock to be <q class="inline-quote">fruitful</q>.
-        </dd>
-
-        <dt class="dance-term">Icelandic brownian shuffle</dt>
-        <dd class="dance-definition">
-          Before the Icelanders developed fire as a means of getting warm, they used to practice this dance, which involved huddling close together in a circle on the floor, and shuffling their bodies around in imperceptibly tiny, very rapid movements. One of my fellow students used to say that he thought this dance inspired modern styles such as <span class="emphasis">Twerking</span>.
-        </dd>
-
-        <dt class="dance-term">Arctic robot dance</dt>
-        <dd class="dance-definition">
-          An interesting example of historic misinformation, English explorers in the 1960s believed to have discovered a new dance style characterized by <q class="inline-quote">robotic</q>, stilted movements, being practiced by inhabitants of Northern Alaska and Canada. Later on however it was discovered that they were just moving like this because they were really cold.
-        </dd>
-      </dl>
-    </section>
-
-    <footer class="letter-closing">
-      <p class="closing-phrase">Yours sincerely,</p>
-      <p class="signature">Dr Eleanor Gaye</p>
-
-      <div class="university-motto">
-        <p>University of Awesome motto: <q class="inline-quote">Be awesome to each other.</q> -- <cite class="citation">The memoirs of Bill S Preston, Esq.</cite></p>
-      </div>
+    <footer>
+      <p>&copy; 2026 HCI Fundamentals | Designed with Flexbox & CSS Grid</p>
     </footer>
 
-  </main>
+  </div>
 
 </body>
 </html>
