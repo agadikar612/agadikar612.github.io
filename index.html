@@ -1,142 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorial 4: JavaScript Fundamentals</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <div class="page">
-
-    <!-- ── left: the RSVP card ──────────────────────────────── -->
-    <div class="card" id="rsvp-card">
-
-      <div class="event-header">
-        <h1 class="event-title">End of Semester Party</h1>
-        <p class="event-meta">Friday, May 9 &middot; 7pm &middot; Someone's Rooftop</p>
-      </div>
-
-      <!-- string: name -->
-      <div class="field">
-        <label for="name-input">Your name</label>
-        <input type="text" id="name-input" placeholder="First name is fine">
-      </div>
-
-      <!-- boolean: going or not -->
-      <div class="rsvp-buttons">
-        <button class="btn btn-yes" id="btn-yes">Going</button>
-        <button class="btn btn-no"  id="btn-no">Can't make it</button>
-      </div>
-
-      <!-- number: guest count, hidden until yes -->
-      <div class="guest-field hidden" id="guest-field">
-        <label for="guest-input">Bringing anyone?</label>
-        <input type="number" id="guest-input" value="0" min="0" max="10">
-        <!-- 
-          Note: type="number" still gives you a STRING from .value
-          You have to convert it. We'll see this below.
-        -->
-      </div>
-
-      <!-- confirmation messages, hidden until a choice is made -->
-      <div class="confirmation hidden" id="confirmation"></div>
-      <div class="regret     hidden" id="regret"></div>
-
-    </div>
-
-    <!-- ── right: tasks panel ───────────────────────────────── -->
-    <aside class="tasks-panel">
-
-      <h2>Tutorial 4: Make HTML Interactive</h2>
-      <p class="intro">
-        This RSVP card has all its HTML and CSS but no behavior yet. <br />
-        Let's wire up the JavaScript so it responds to the user.
-      </p>
-
-      <div class="task-group">
-        <h3>Before you write any JS</h3>
-        <p>Open the browser console (F12 → Console tab) and leave it open. 
-           You'll use <code>console.log()</code> to check your work throughout.</p>
-      </div>
-
-      <div class="task-group">
-        <h3>Task 1 — Boolean: Yes / No buttons</h3>
-        <p>
-          When someone clicks <strong>Going</strong>, set <code>isGoing = true</code>
-          and add the <code>active</code> class to that button.
-          When they click <strong>Can't make it</strong>, the opposite.
-          Only one can be active at a time.
-        </p>
-        <p>Skills: <code>addEventListener</code>, <code>classList.add/remove</code>, boolean variables</p>
-      </div>
-
-      <div class="task-group">
-        <h3>Task 2 — Show / hide: guest field</h3>
-        <p>
-          When someone clicks Going, <strong>remove</strong> the <code>hidden</code> class
-          from <code>#guest-field</code> so the guest count appears.
-          When they click Can't make it, add it back.
-        </p>
-        <p>Skills: <code>classList.remove</code>, <code>classList.add</code>, conditional display</p>
-      </div>
-
-      <div class="task-group">
-        <h3>Task 3 — String: confirmation message</h3>
-        <p>
-          After a choice is made, show a message in <code>#confirmation</code> or 
-          <code>#regret</code>. Use the name from the input.
-          Use a template literal: <code>`${getName()} is coming!`</code>
-        </p>
-        <p>
-          A helper function <code>getName()</code> is already written for you in 
-          <code>script.js</code> — read it and understand what it does before using it.
-        </p>
-        <p>Skills: template literals, <code>textContent</code>, showing hidden elements</p>
-      </div>
-
-      <div class="task-group">
-        <h3>Task 4 — Number: guest count</h3>
-        <p>
-          Update the confirmation message to include how many guests they're bringing.
-          Watch out: <code>guestInput.value</code> is a <strong>string</strong>, not a number.
-          Try logging it with <code>typeof</code> to see for yourself.
-          Use <code>Number()</code> to convert it.
-        </p>
-        <p>
-          Stretch: handle the difference between 0 guests ("flying solo") and 
-          1 guest ("1 guest") and 2+ guests ("2 guests").
-        </p>
-        <p>Skills: type conversion, <code>Number()</code>, conditionals</p>
-      </div>
-
-      <div class="task-group">
-        <h3>Task 5 — Live update</h3>
-        <p>
-          Add <code>input</code> event listeners to both the name field and the guest
-          count field so the confirmation message updates as the user types —
-          not just when they first click the button.
-        </p>
-        <p>Skills: <code>addEventListener('input', ...)</code>, reactive updates</p>
-      </div>
-
-      <div class="task-group task-stretch">
-        <h3>Stretch — Operators and comparisons</h3>
-        <p>
-          Add a running total below the guest field: 
-          "X people confirmed so far" — where X is the number of guests plus 1 (the person themselves).
-        </p>
-        <p>
-          Or: disable the Going button if the name field is empty.
-          Check <code>nameInput.value.trim() === ''</code> on every input event.
-        </p>
-      </div>
-
-    </aside>
-
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tutorial 5: Array Methods</title>
+<style>
+body{font:16px system-ui,sans-serif;background:#f5f7fb;color:#202938;margin:0}main{max-width:900px;margin:32px auto;padding:16px}h1{margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}section{background:white;border:1px solid #dce2ea;border-radius:12px;padding:18px}code{background:#edf2ff;padding:3px 6px;border-radius:5px}button{background:#2457c5;color:white;border:0;border-radius:7px;padding:10px 13px;font-weight:bold;cursor:pointer}button:focus-visible{outline:3px solid #9ab6ff}ul{padding-left:22px}.out{border-top:1px solid #dce2ea;margin-top:12px;padding-top:10px;min-height:45px}.muted{color:#687386}@media(max-width:650px){.grid{grid-template-columns:1fr}}
+</style></head><body><main><p class="muted">JAVASCRIPT · TUTORIAL 5</p><h1>Restaurant Array Methods</h1><p>Click each button to see how <code>forEach</code>, <code>filter</code>, <code>map</code>, and <code>find</code> process the same data.</p>
+<div class="grid">
+<section><code>forEach()</code><h2>All restaurants</h2><p>Display names and cuisines.</p><button id="b1">Show all restaurants</button><div class="out" id="o1" aria-live="polite">Click to display results.</div></section>
+<section><code>filter()</code><h2>Budget options</h2><p>Only restaurants priced $ or $$.</p><button id="b2">Filter by price</button><div class="out" id="o2" aria-live="polite">Click to display results.</div></section>
+<section><code>map()</code><h2>Restaurant names</h2><p>Create a list of names only.</p><button id="b3">Show names</button><div class="out" id="o3" aria-live="polite">Click to display results.</div></section>
+<section><code>find()</code><h2>Rating 4.8</h2><p>Find the first restaurant rated 4.8.</p><button id="b4">Find restaurant</button><div class="out" id="o4" aria-live="polite">Click to display results.</div></section>
+</div><p class="muted">The original restaurants array is never modified.</p></main>
+<script>
+const restaurants=[
+{name:"Cedar & Spice",cuisine:"Mediterranean",price:"$$",rating:4.8},
+{name:"Nori House",cuisine:"Japanese",price:"$$",rating:4.6},
+{name:"Taco Garden",cuisine:"Mexican",price:"$",rating:4.4},
+{name:"The Copper Table",cuisine:"American",price:"$$$",rating:4.7},
+{name:"Lotus Bowl",cuisine:"Thai",price:"$",rating:4.3},
+{name:"Saffron Lane",cuisine:"Indian",price:"$$$",rating:4.9}
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+document.querySelector("#b1").addEventListener("click",()=>{
+ const rows=[];
+ restaurants.forEach(r=>rows.push(`<li><b>${esc(r.name)}</b> — ${esc(r.cuisine)}</li>`));
+ document.querySelector("#o1").innerHTML=`<ul>${rows.join("")}</ul>`;
+});
+document.querySelector("#b2").addEventListener("click",()=>{
+ const affordable=restaurants.filter(r=>r.price==="$"||r.price==="$$");
+ document.querySelector("#o2").innerHTML=`<ul>${affordable.map(r=>`<li><b>${esc(r.name)}</b> — ${esc(r.cuisine)} (${esc(r.price)})</li>`).join("")}</ul>`;
+});
+document.querySelector("#b3").addEventListener("click",()=>{
+ const names=restaurants.map(r=>r.name);
+ document.querySelector("#o3").innerHTML=`<ul>${names.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
+});
+document.querySelector("#b4").addEventListener("click",()=>{
+ const match=restaurants.find(r=>r.rating===4.8);
+ document.querySelector("#o4").innerHTML=match?`<p><b>${esc(match.name)}</b><br>${esc(match.cuisine)} · ${esc(match.price)} · Rating ${esc(match.rating)}</p>`:"No restaurant with rating 4.8 found.";
+});
+</script></body></html>
