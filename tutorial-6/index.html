@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A restaurant finder demonstrating async/await, fetch, loading states, error recovery, and JavaScript array methods.">
+  <title>Local Plate | Restaurant Finder</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Local Plate home">
+      <span class="brand-mark" aria-hidden="true">LP</span>
+      <span>local<span class="brand-accent">plate</span></span>
+    </a>
+    <span class="header-note"><span class="live-dot"></span> Campus food guide</span>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR NEXT FAVORITE MEAL</p>
+        <h1 id="page-title">Good food is<br><span>closer than you think.</span></h1>
+        <p class="hero-description">Explore neighborhood spots, find a cuisine you love, and choose your next bite.</p>
+        <div class="hero-stats" aria-label="Directory highlights">
+          <div><strong id="hero-count">—</strong><span>places to explore</span></div>
+          <div><strong>Local</strong><span>neighborhood picks</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-circle circle-back"></div>
+        <div class="art-circle circle-front"></div>
+        <div class="plate">
+          <div class="plate-food food-one"></div><div class="plate-food food-two"></div>
+          <div class="plate-food food-three"></div><div class="plate-food food-four"></div>
+          <div class="plate-center"></div>
+        </div>
+        <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✦</span>
+        <span class="art-leaf">✳</span>
+      </div>
+    </section>
+
+    <section class="finder-panel" aria-labelledby="finder-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">THE DIRECTORY</p><h2 id="finder-title">Find your kind of place</h2></div>
+        <button id="refresh-btn" class="text-button" type="button">↻ Refresh data</button>
+      </div>
+
+      <div id="status" class="status status-loading" role="status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span><span>Loading restaurant data…</span>
+      </div>
+
+      <div id="error-panel" class="error-panel" hidden>
+        <div class="error-icon" aria-hidden="true">!</div>
+        <div class="error-copy"><strong>We couldn’t load the menu.</strong><p id="error-message">Check your connection and try again.</p></div>
+        <button id="retry-btn" class="button button-dark" type="button">Try again</button>
+      </div>
+
+      <div id="controls" class="controls" aria-label="Restaurant filters" hidden>
+        <label class="search-field">
+          <span class="sr-only">Search restaurants</span>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="Search places or descriptions…" autocomplete="off">
+        </label>
+        <label class="select-wrap"><span class="sr-only">Filter by cuisine</span>
+          <select id="cuisine-filter"><option value="all">All cuisines</option></select>
+        </label>
+        <label class="check-control"><input id="vegetarian-filter" type="checkbox"><span class="custom-check" aria-hidden="true"></span><span>Vegetarian options</span></label>
+      </div>
+
+      <div class="results-heading">
+        <h3 id="results-title">Popular nearby</h3>
+        <span id="results-count" class="results-count">Preparing places…</span>
+      </div>
+      <div id="restaurant-grid" class="restaurant-grid" aria-live="polite" aria-busy="true"></div>
+      <div id="empty-state" class="empty-state" hidden>
+        <span class="empty-emoji" aria-hidden="true">⌕</span>
+        <h3>No matches just yet</h3>
+        <p>Try another search or clear a filter to see more places.</p>
+        <button id="clear-filters-btn" class="button button-outline" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <section class="tip-strip">
+      <span class="tip-icon" aria-hidden="true">✦</span>
+      <div><strong>A little tip</strong><p>Use the search and filters to narrow the list. This demo loads its restaurant directory from a separate JSON file.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Local Plate</span><span>Made for curious appetites.</span>
+  </footer>
+
+  <noscript><p class="noscript">This restaurant finder needs JavaScript enabled to load the directory.</p></noscript>
+</body>
+</html>

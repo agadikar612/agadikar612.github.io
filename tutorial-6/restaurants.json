@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "name": "Terrapin Table",
+    "cuisine": "American",
+    "rating": 4.6,
+    "price": "$$",
+    "address": "College Park, MD",
+    "vegetarianOptions": true,
+    "description": "Comfort food, seasonal bowls, and campus favorites.",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "Curry Corner",
+    "cuisine": "Indian",
+    "rating": 4.8,
+    "price": "$$",
+    "address": "College Park, MD",
+    "vegetarianOptions": true,
+    "description": "Fragrant curries, fresh naan, and plant-based choices.",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "name": "Little Seoul Kitchen",
+    "cuisine": "Korean",
+    "rating": 4.5,
+    "price": "$$",
+    "address": "Hyattsville, MD",
+    "vegetarianOptions": false,
+    "description": "Korean-inspired rice bowls and savory comfort dishes.",
+    "featured": false
+  },
+  {
+    "id": 4,
+    "name": "Green Fork Caf\u00e9",
+    "cuisine": "Healthy",
+    "rating": 4.7,
+    "price": "$",
+    "address": "College Park, MD",
+    "vegetarianOptions": true,
+    "description": "Colorful salads, grain bowls, smoothies, and light bites.",
+    "featured": true
+  },
+  {
+    "id": 5,
+    "name": "Pasta & Co.",
+    "cuisine": "Italian",
+    "rating": 4.3,
+    "price": "$$",
+    "address": "Riverdale Park, MD",
+    "vegetarianOptions": true,
+    "description": "Classic pasta, house sauces, and simple Italian plates.",
+    "featured": false
+  },
+  {
+    "id": 6,
+    "name": "Sizzle House",
+    "cuisine": "American",
+    "rating": 4.2,
+    "price": "$$",
+    "address": "Hyattsville, MD",
+    "vegetarianOptions": false,
+    "description": "Burgers, sandwiches, and hearty grill favorites.",
+    "featured": false
+  },
+  {
+    "id": 7,
+    "name": "Sushi Harbor",
+    "cuisine": "Japanese",
+    "rating": 4.6,
+    "price": "$$$",
+    "address": "College Park, MD",
+    "vegetarianOptions": true,
+    "description": "Sushi rolls, bento boxes, and Japanese small plates.",
+    "featured": true
+  },
+  {
+    "id": 8,
+    "name": "Taco Garden",
+    "cuisine": "Mexican",
+    "rating": 4.4,
+    "price": "$",
+    "address": "College Park, MD",
+    "vegetarianOptions": true,
+    "description": "Tacos, bowls, salsa, and customizable fillings.",
+    "featured": false
+  },
+  {
+    "id": 9,
+    "name": "Pho Lantern",
+    "cuisine": "Vietnamese",
+    "rating": 4.7,
+    "price": "$$",
+    "address": "Berwyn Heights, MD",
+    "vegetarianOptions": true,
+    "description": "Vietnamese noodle soups, herbs, and fresh rice plates.",
+    "featured": false
+  },
+  {
+    "id": 10,
+    "name": "Bluebird Bakery",
+    "cuisine": "Bakery",
+    "rating": 4.5,
+    "price": "$",
+    "address": "College Park, MD",
+    "vegetarianOptions": true,
+    "description": "Fresh pastries, coffee, and baked treats.",
+    "featured": false
+  }
+]
