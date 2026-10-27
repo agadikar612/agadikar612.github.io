@@ -1,0 +1,206 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tutorial 7: External Libraries</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{font-family:system-ui,sans-serif;color:#202938;background:#f5f7fb}
+*{box-sizing:border-box}
+body{margin:0}
+main{max-width:1050px;margin:28px auto;padding:16px}
+header,.demo{background:white;border:1px solid #dce2ea;border-radius:14px;padding:20px;margin-bottom:16px}
+h1{margin:.2em 0}
+h2{margin-top:0}
+p{line-height:1.5}
+.muted{color:#687386}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+canvas{max-height:300px}
+#map{height:300px;border-radius:10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.restaurant{border:1px solid #dce2ea;border-radius:10px;padding:14px;background:#fff}
+.restaurant p{margin:.4em 0}
+button{background:#2457c5;color:white;border:0;border-radius:8px;padding:10px 14px;font-weight:650;cursor:pointer}
+.status{padding:10px;border-radius:8px;background:#edf2ff;margin:12px 0}
+.error{background:#fff0ed;color:#8a2415}
+nav a{margin-right:14px}
+</style>
+</head>
+<body>
+<main>
+<header>
+<nav><a href="../">← All tutorials</a></nav>
+<p class="muted">JAVASCRIPT · TUTORIAL 7</p>
+<h1>External JavaScript Libraries</h1>
+<p>Explore restaurant data using Chart.js, Leaflet.js, and GSAP.</p>
+<div id="status" class="status" role="status">Loading restaurant data…</div>
+</header>
+
+<div class="grid">
+<section class="demo">
+<h2>1. Chart.js — Cuisine counts</h2>
+<p class="muted">Compare restaurant counts by cuisine.</p>
+<canvas id="cuisineChart"></canvas>
+<p id="chartFallback" class="muted"></p>
+</section>
+
+<section class="demo">
+<h2>2. Leaflet.js — Restaurant map</h2>
+<p class="muted">Click a marker to view restaurant details. Locations are illustrative.</p>
+<div id="map"></div>
+<p id="mapFallback" class="muted"></p>
+</section>
+</div>
+
+<section class="demo">
+<h2>3. GSAP — Animated restaurant cards</h2>
+<p class="muted">Click to replay the animation.</p>
+<button id="animateBtn" type="button">Replay animation</button>
+<div id="restaurants" class="cards" style="margin-top:14px"></div>
+<p id="gsapFallback" class="muted"></p>
+</section>
+
+<section class="demo">
+<h2>Error handling</h2>
+<p>Each external library is checked before use. If a library fails to load, a fallback message appears and the other demos can still work.</p>
+</section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+const statusBox = document.querySelector("#status");
+
+const restaurants = [
+ {name:"Cedar & Spice",cuisine:"Mediterranean",price:"$$",rating:4.8,lat:38.9897,lng:-76.9378},
+ {name:"Nori House",cuisine:"Japanese",price:"$$",rating:4.6,lat:38.9869,lng:-76.9426},
+ {name:"Taco Garden",cuisine:"Mexican",price:"$",rating:4.4,lat:38.9922,lng:-76.9354},
+ {name:"The Copper Table",cuisine:"American",price:"$$$",rating:4.7,lat:38.9849,lng:-76.9391},
+ {name:"Lotus Bowl",cuisine:"Thai",price:"$",rating:4.3,lat:38.9910,lng:-76.9440},
+ {name:"Saffron Lane",cuisine:"Indian",price:"$$$",rating:4.9,lat:38.9878,lng:-76.9338}
+];
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+
+async function loadRestaurants(){
+ await Promise.resolve();
+ return restaurants;
+}
+
+function showCards(data){
+ document.querySelector("#restaurants").innerHTML = data.map(r => `
+  <article class="restaurant">
+   <b>${esc(r.name)}</b>
+   <p>${esc(r.cuisine)}</p>
+   <p>${esc(r.price)} · Rating ${esc(r.rating)}</p>
+  </article>
+ `).join("");
+}
+
+function initChart(data){
+ if(!window.Chart){
+  document.querySelector("#chartFallback").textContent =
+   "Chart.js failed to load. Other demos can still be used.";
+  return;
+ }
+
+ const counts = {};
+ data.forEach(r => counts[r.cuisine] = (counts[r.cuisine] || 0) + 1);
+
+ try {
+  new Chart(document.querySelector("#cuisineChart"), {
+   type:"bar",
+   data:{
+    labels:Object.keys(counts),
+    datasets:[{
+     label:"Number of restaurants",
+     data:Object.values(counts)
+    }]
+   },
+   options:{
+    responsive:true,
+    plugins:{legend:{display:false}}
+   }
+  });
+ } catch(e) {
+  document.querySelector("#chartFallback").textContent =
+   "Chart could not be initialized.";
+ }
+}
+
+function initMap(data){
+ if(!window.L){
+  document.querySelector("#mapFallback").textContent =
+   "Leaflet failed to load. Other demos can still be used.";
+  return;
+ }
+
+ try {
+  const map = L.map("map").setView([38.989,-76.939],15);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+   attribution:"&copy; OpenStreetMap contributors",
+   maxZoom:19
+  }).addTo(map);
+
+  data.forEach(r => {
+   L.marker([r.lat,r.lng]).addTo(map)
+    .bindPopup(`<b>${esc(r.name)}</b><br>${esc(r.cuisine)} · ${esc(r.price)}<br>Rating ${esc(r.rating)}`);
+  });
+ } catch(e) {
+  document.querySelector("#mapFallback").textContent =
+   "Map could not be initialized.";
+ }
+}
+
+function animateCards(){
+ const cards = document.querySelectorAll(".restaurant");
+ if(!cards.length) return;
+
+ if(window.gsap){
+  gsap.fromTo(cards,
+   {y:18,opacity:0},
+   {y:0,opacity:1,duration:.55,stagger:.08,ease:"power2.out"}
+  );
+ } else {
+  document.querySelector("#gsapFallback").textContent =
+   "GSAP failed to load. Cards are displayed without animation.";
+  cards.forEach(c => {
+   c.style.opacity = 1;
+   c.style.transform = "none";
+  });
+ }
+}
+
+async function main(){
+ try {
+  const data = await loadRestaurants();
+  showCards(data);
+  initChart(data);
+  initMap(data);
+
+  statusBox.textContent =
+   `Data ready: ${data.length} restaurants. Check below for any library errors.`;
+
+  document.querySelector("#animateBtn")
+   .addEventListener("click",animateCards);
+
+  animateCards();
+ } catch(e) {
+  statusBox.className = "status error";
+  statusBox.textContent =
+   "Could not load restaurant data. Refresh and try again.";
+  console.error(e);
+ }
+}
+
+main();
+</script>
+</body>
+</html>
